@@ -1,0 +1,38 @@
+group 'ru.overtired'
+version '1.0'
+
+buildscript {
+    ext.kotlin_version = '1.2.41'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath "de.dynamicfiles.projects.gradle.plugins:javafx-gradle-plugin:8.8.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+apply plugin: 'javafx-gradle-plugin'
+
+jfx {
+    mainClass = 'ru.oveertired.JavaFxApp'
+
+// Minimal requirement for jfxNative-task
+    vendor = 'GerardoPrada'
+}
