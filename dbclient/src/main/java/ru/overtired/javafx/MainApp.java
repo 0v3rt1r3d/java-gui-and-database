@@ -9,10 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import ru.overtired.database.H2Database;
 
 public class MainApp extends Application {
 
     public static void main(String[] args) {
+        H2Database db = new H2Database();
         launch(args);
     }
 
