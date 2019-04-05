@@ -18,7 +18,7 @@ public class ThirdSampleApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        final Parent root = FXMLLoader.load(getClass().getResource("/fxml/clicker_controller.fxml"));
+        final Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_controller.fxml"));
 
         final Scene scene = new Scene(root);
 

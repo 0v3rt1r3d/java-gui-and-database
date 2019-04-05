@@ -12,21 +12,13 @@ public class H2Database {
     private HibernateManager hibernate;
 
     public H2Database() {
-        hibernate = new HibernateManager();
+        hibernate = HibernateManager.getInstance();
         initDB();
-        List<User> users = hibernate.getAllUsers();
-        for (User user : users) {
-            System.out.println(String.format(
-                    "%s\nИмя: %s\nДата рождения: %s\nРост: %s",
-                    user.getId(),
-                    user.getUsername(),
-                    user.getDateOfBirth().toString(),
-                    user.getGrowth())
-            );
-        }
     }
 
     private void initDB() {
+        hibernate.beginTransaction();
+
         Random rnd = new Random();
         for (int i = 0; i < 100; i++) {
             User user = new User();
@@ -37,5 +29,6 @@ public class H2Database {
             hibernate.save(user);
         }
 
+        hibernate.endTransaction();
     }
 }

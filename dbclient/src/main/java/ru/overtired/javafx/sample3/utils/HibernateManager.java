@@ -1,65 +1,64 @@
 package ru.overtired.javafx.sample3.utils;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import ru.overtired.javafx.sample3.models.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class HibernateManager {
-
-    private final SessionFactory sessionFactory;
-
+    private static HibernateManager instance = null;
     private EntityManager entityManager;
-    private Logger logger = Logger.getLogger(HibernateManager.class.getName());
 
-    public HibernateManager() {
-        sessionFactory = buildSessionFactory();
+    private HibernateManager() {
+        SessionFactory sessionFactory = buildSessionFactory();
+        entityManager = sessionFactory.createEntityManager();
     }
 
-    private SessionFactory buildSessionFactory() {
+    public static HibernateManager getInstance() {
+        if (instance == null) {
+            instance = new HibernateManager();
+        }
+        return instance;
+    }
+
+    private SessionFactory buildSessionFactory() throws Error {
+        Properties dbConnectionProperties = new Properties();
         try {
-            Properties dbConnectionProperties = new Properties();
             dbConnectionProperties.load(
                     ClassLoader.getSystemClassLoader().getResourceAsStream("hibernate.properties")
             );
-
-            Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(User.class);
-            configuration.addProperties(dbConnectionProperties);
-
-            return configuration.buildSessionFactory();
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Can't connect to database");
-
-            return null;
+        } catch (IOException e) {
+            throw new Error("Cannot read hibernate properties");
         }
+
+        Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(User.class);
+        configuration.addProperties(dbConnectionProperties);
+
+        return configuration.buildSessionFactory();
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public void beginTransaction() {
+        entityManager.getTransaction().begin();
+    }
+
+    public void endTransaction() {
+        entityManager.getTransaction().commit();
     }
 
     public void save(Object entity) {
-        Session session = sessionFactory.openSession();
-        Transaction trans = session.beginTransaction();
-        session.save(entity);
-        trans.commit();
+       entityManager.persist(entity);
+
     }
 
     public List<User> getAllUsers() {
-        Session session = sessionFactory.openSession();
-        Transaction trans = session.beginTransaction();
-        Query<User> userQuery = session.createQuery("Select u from User u", User.class);
-        trans.commit();
+        TypedQuery<User> userQuery = entityManager.createQuery("Select u from User u", User.class);
         return userQuery.getResultList();
     }
 }
