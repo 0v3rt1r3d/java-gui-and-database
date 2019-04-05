@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import ru.overtired.database.H2Database;
 
 public class MainApp extends Application {
+    private H2Database db;
 
     public static void main(String[] args) {
         H2Database db = new H2Database();
@@ -22,7 +23,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         Button btn = new Button();
         btn.setText("Button");
-        btn.setOnAction(event -> System.out.println("Hello World!"));
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         Scene scene = new Scene(root);
