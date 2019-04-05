@@ -1,7 +1,6 @@
 package ru.overtired.javafx.sample2;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

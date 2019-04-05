@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Sample2 extends Application {
+public class SecondSampleApp extends Application {
 
     public static void main(String[] args) {
-        Sample2.launch(args);
+        SecondSampleApp.launch(args);
     }
 
     @Override

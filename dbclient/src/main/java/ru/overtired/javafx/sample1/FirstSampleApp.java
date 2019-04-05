@@ -11,14 +11,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Sample1 extends Application {
+public class FirstSampleApp extends Application {
 
     private int clickCounter = 0;
     private Text text = null;
-
-    public static void main(String[] args) {
-        Sample1.launch(args);
-    }
 
     @Override
     public void start(Stage stage) {
