@@ -54,7 +54,6 @@ public class HibernateManager {
 
     public void save(Object entity) {
        entityManager.persist(entity);
-
     }
 
     public List<User> getAllUsers() {

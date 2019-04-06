@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ThirdSampleApp extends Application {
 
     public static void main(String[] args) {
-        new H2Database();
+        H2Database.initDatabase();
         ThirdSampleApp.launch(args);
     }
 

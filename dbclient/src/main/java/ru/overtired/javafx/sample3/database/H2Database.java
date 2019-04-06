@@ -5,18 +5,15 @@ import ru.overtired.javafx.sample3.utils.HibernateManager;
 import ru.overtired.javafx.sample3.models.User;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Random;
 
 public class H2Database {
-    private HibernateManager hibernate;
-
-    public H2Database() {
-        hibernate = HibernateManager.getInstance();
-        initDB();
+    private H2Database() {
+        // static class
     }
 
-    private void initDB() {
+    public static void initDatabase() {
+        final HibernateManager hibernate = HibernateManager.getInstance();
         hibernate.beginTransaction();
 
         Random rnd = new Random();
